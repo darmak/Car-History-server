@@ -1,10 +1,5 @@
-import PG from "pg";
-const { Pool } = PG;
+import { Sequelize } from 'sequelize';
+import config from 'config';
+const postgres = config.get('postgres');
 
-export const db = new Pool({
-	user: "postgres",
-	password: "21081915omgQ@",
-	host: "localhost",
-	port: 5432,
-	database: "car_history"
-});
+export const sequelize = new Sequelize(postgres);

@@ -1,0 +1,7 @@
+{
+	"postgres": {
+		"database": "Car-History",
+		"host": "localhost",
+		"dialect": "postgres"
+	}
+}

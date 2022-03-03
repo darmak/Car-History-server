@@ -3,19 +3,24 @@ import cors from 'cors';
 import path from 'path';
 import router from './routes/index.js';
 import bodyParser from 'body-parser';
+import process from 'process';
+import { sequelize } from './db/db.js';
+import dotenv from 'dotenv';
 
+dotenv.config();
 const __dirname = path.resolve();
-
-const _PORT = 5000;
+const _PORT = process.env.PORT || 5000;
 const app = express();
 
 async function start() {
   try {
+    await sequelize.authenticate();
+    await sequelize.sync();
     app.listen(_PORT, () => {
       console.log('Server has been started on ' + _PORT + ' port');
     });
   } catch (e) {
-    console.log(e);
+    console.log('Error', e);
   }
 }
 
@@ -28,10 +33,11 @@ app.use(
   })
 );
 
+app.use(express.json());
+
 app.set('view engine', 'ejs');
 app.set('views', path.resolve(__dirname, 'ejs'));
 app.use(express.static(path.resolve(__dirname, 'static')));
-app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
