@@ -4,7 +4,7 @@ import path from 'path';
 import router from './routes/index.js';
 import bodyParser from 'body-parser';
 import process from 'process';
-import { sequelize } from './db/db.js';
+import { sequelize } from './models/index.js';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -20,7 +20,7 @@ async function start() {
       console.log('Server has been started on ' + _PORT + ' port');
     });
   } catch (e) {
-    console.log('Error', e);
+    console.error(e);
   }
 }
 
@@ -35,8 +35,6 @@ app.use(
 
 app.use(express.json());
 
-app.set('view engine', 'ejs');
-app.set('views', path.resolve(__dirname, 'ejs'));
 app.use(express.static(path.resolve(__dirname, 'static')));
 app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: true }));

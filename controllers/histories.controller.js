@@ -5,6 +5,6 @@ export const getHistories = async (req, res) => {
     const histories = await Histories.findAll();
     return res.json(histories);
   } catch (e) {
-    return res.json('Ошибка');
+    return res.json('Error: did not get histories');
   }
 };

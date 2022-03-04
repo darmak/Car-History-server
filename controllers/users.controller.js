@@ -1,10 +1,11 @@
 import { Users } from '../models/users.js';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import process from 'process';
+import config from 'config';
+const { secretKey } = config.get('auth');
 
 const generateJWT = (id, email, role) => {
-  return jwt.sign({ id, email, role }, process.env.SECRET_KEY, {
+  return jwt.sign({ id, email, role }, secretKey, {
     expiresIn: '1h'
   });
 };
@@ -24,7 +25,7 @@ export const registration = async (req, res, next) => {
     const token = generateJWT(user.id, user.email, user.user_role);
     return res.json({ token });
   } catch (e) {
-    return res.json('Ошибка');
+    return res.json('Error: failed to register');
   }
 };
 
@@ -42,7 +43,7 @@ export const login = async (req, res, next) => {
     const token = generateJWT(user.id, user.email, user.role);
     return res.json({ token });
   } catch (e) {
-    return res.json('Ошибка');
+    return res.json('Error: failed to login');
   }
 };
 
