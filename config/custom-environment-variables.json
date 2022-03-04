@@ -1,0 +1,9 @@
+{
+  "postgres": {
+      "password": "POSTGRES_PASSWORD",
+			"username": "POSTGRES_USERNAME"
+    },
+		"auth": {
+			"secretKey": "SECRET_KEY"
+		}
+}
