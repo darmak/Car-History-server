@@ -8,3 +8,13 @@ export const getCarModels = async (req, res) => {
     return res.json('Error: did not get models');
   }
 };
+
+export const addCarModel = async (req, res) => {
+  try {
+    const { model, carBrandId } = req.body;
+    const newModel = await CarModels.create({ model, carBrandId });
+    return res.json(newModel);
+  } catch (e) {
+    return res.json('Error: did not add model');
+  }
+};

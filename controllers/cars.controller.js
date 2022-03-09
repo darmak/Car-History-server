@@ -4,7 +4,7 @@ export const getOneCar = async (req, res) => {
   try {
     const { vin } = req.body;
     const car = await Cars.findOne({
-      where: { vin }
+      where: { vin: vin.toUpperCase() }
     });
     return res.json(car);
   } catch (e) {
@@ -15,7 +15,14 @@ export const getOneCar = async (req, res) => {
 export const addCar = async (req, res) => {
   try {
     const { mileage, year, vin, userId, carBrandId, carModelId } = req.body;
-    const newCar = await Cars.create({ mileage, year, vin, userId, carBrandId, carModelId });
+    const newCar = await Cars.create({
+      mileage,
+      year,
+      vin: vin.toUpperCase(),
+      userId,
+      carBrandId,
+      carModelId
+    });
     return res.json(newCar);
   } catch (e) {
     return res.json('Error: did not add car');
