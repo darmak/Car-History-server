@@ -1,9 +1,9 @@
 import { DataTypes } from 'sequelize';
-import { sequelize } from '../models/index.js';
-import { Cars } from './cars.js';
-import { CarModels } from './carModels.js';
+import { sequelize } from './index.js';
+import { Cars } from './Car.js';
+import { CarModels } from './CarModel.js';
 
-export const CarBrands = sequelize.define('car_brands', {
+export const CarBrands = sequelize.define('carBrands', {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   brand: { type: DataTypes.STRING, unique: true, allowNull: false }
 });

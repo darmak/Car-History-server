@@ -1,5 +1,5 @@
 import { DataTypes } from 'sequelize';
-import { sequelize } from '../models/index.js';
+import { sequelize } from './index.js';
 
 export const Histories = sequelize.define('histories', {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },

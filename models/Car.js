@@ -1,6 +1,6 @@
 import { DataTypes } from 'sequelize';
-import { sequelize } from '../models/index.js';
-import { Histories } from './histories.js';
+import { sequelize } from './index.js';
+import { Histories } from './History.js';
 
 export const Cars = sequelize.define('cars', {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },

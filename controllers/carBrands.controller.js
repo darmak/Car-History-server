@@ -1,4 +1,4 @@
-import { CarBrands } from '../models/carBrands.js';
+import { CarBrands } from '../models/CarBrand.js';
 
 export const getCarBrands = async (req, res) => {
   try {
