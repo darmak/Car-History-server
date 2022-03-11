@@ -1,8 +1,8 @@
 import { DataTypes } from 'sequelize';
 import { sequelize } from './index.js';
-import { Cars } from './Car.js';
+import { Car } from './Car.js';
 
-export const Users = sequelize.define('users', {
+export const User = sequelize.define('users', {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   name: { type: DataTypes.STRING, allowNull: false },
   email: { type: DataTypes.STRING, unique: true, allowNull: false },
@@ -10,5 +10,5 @@ export const Users = sequelize.define('users', {
   user_role: { type: DataTypes.STRING, defaultValue: 'USER' }
 });
 
-Users.hasMany(Cars);
-Cars.belongsTo(Users);
+User.hasMany(Car);
+Car.belongsTo(User);

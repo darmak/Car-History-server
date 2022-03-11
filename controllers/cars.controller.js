@@ -1,14 +1,14 @@
-import { Cars } from '../models/Car.js';
-import { CarBrands } from '../models/CarBrand.js';
-import { CarModels } from '../models/CarModel.js';
+import { Car } from '../models/Car.js';
+import { CarBrand } from '../models/CarBrand.js';
+import { CarModel } from '../models/CarModel.js';
 
 export const getCars = async (req, res) => {
   try {
-    const car = await Cars.findAll({
+    const car = await Car.findAll({
       where: req.query,
       include: [
-        { model: CarBrands, attributes: ['brand'] },
-        { model: CarModels, attributes: ['model'] }
+        { model: CarBrand, attributes: ['brand'] },
+        { model: CarModel, attributes: ['model'] }
       ]
     });
     return res.json(car);
@@ -20,7 +20,7 @@ export const getCars = async (req, res) => {
 export const addCar = async (req, res) => {
   try {
     const { mileage, year, vin, userId, carBrandId, carModelId } = req.body;
-    const newCar = await Cars.create({
+    const newCar = await Car.create({
       mileage,
       year,
       vin: vin.toUpperCase(),
