@@ -1,7 +1,7 @@
 import { DataTypes } from 'sequelize';
-import { sequelize } from '../models/index.js';
+import { sequelize } from './index.js';
 
-export const Histories = sequelize.define('histories', {
+export const History = sequelize.define('histories', {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   mileage: { type: DataTypes.INTEGER, allowNull: false },
   author: { type: DataTypes.STRING, allowNull: false },

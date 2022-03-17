@@ -1,4 +1,4 @@
-import { Users } from '../models/users.js';
+import { User } from '../models/User.js';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import config from 'config';
@@ -16,14 +16,13 @@ export const registration = async (req, res, next) => {
     if (!email || !password) {
       return next();
     }
-    const candidate = await Users.findOne({ where: { email } });
+    const candidate = await User.findOne({ where: { email } });
     if (candidate) {
       return next();
     }
     const hashPassword = await bcrypt.hash(password, 5);
-    const user = await Users.create({ name, email, user_role, hash_password: hashPassword });
-    const token = generateJWT(user.id, user.email, user.user_role);
-    return res.json({ token });
+    const user = await User.create({ name, email, user_role, hash_password: hashPassword });
+    return res.json(user);
   } catch (e) {
     return res.json('Error: failed to register');
   }
@@ -32,7 +31,7 @@ export const registration = async (req, res, next) => {
 export const login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
-    const user = await Users.findOne({ where: { email } });
+    const user = await User.findOne({ where: { email } });
     if (!user) {
       return next();
     }
@@ -40,8 +39,8 @@ export const login = async (req, res, next) => {
     if (!comparePassword) {
       return next();
     }
-    const token = generateJWT(user.id, user.email, user.role);
-    return res.json({ token });
+    const token = generateJWT(user.id, user.name, user.email, user.role);
+    return res.json({ user, token });
   } catch (e) {
     return res.json('Error: failed to login');
   }
