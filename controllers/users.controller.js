@@ -22,8 +22,7 @@ export const registration = async (req, res, next) => {
     }
     const hashPassword = await bcrypt.hash(password, 5);
     const user = await User.create({ name, email, user_role, hash_password: hashPassword });
-    const token = generateJWT(user.id, user.email, user.user_role);
-    return res.json({ token });
+    return res.json(user);
   } catch (e) {
     return res.json('Error: failed to register');
   }
@@ -40,8 +39,8 @@ export const login = async (req, res, next) => {
     if (!comparePassword) {
       return next();
     }
-    const token = generateJWT(user.id, user.email, user.role);
-    return res.json({ token });
+    const token = generateJWT(user.id, user.name, user.email, user.role);
+    return res.json({ user, token });
   } catch (e) {
     return res.json('Error: failed to login');
   }
