@@ -1,5 +1,6 @@
-import { getHistories } from '../controllers/histories.controller.js';
+import { getCarHistories, addHistory } from '../controllers/histories.controller.js';
 
 export default (router) => {
-  router.post('/histories', getHistories);
+  router.get('/histories', getCarHistories);
+  router.post('/histories', addHistory);
 };

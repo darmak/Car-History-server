@@ -6,7 +6,7 @@ const { Op } = Sequelize;
 
 export const getSearchCars = async (req, res) => {
   try {
-    const car = await Car.findAll({
+    const cars = await Car.findAll({
       where: {
         vin: {
           [Op.like]: Sequelize.literal(`'%${req.query.vin}%'`)
@@ -18,7 +18,7 @@ export const getSearchCars = async (req, res) => {
       ],
       limit: req.query.limit
     });
-    return res.json(car);
+    return res.json(cars);
   } catch (e) {
     return res.json('Error: did not get one car');
   }
@@ -27,7 +27,7 @@ export const getSearchCars = async (req, res) => {
 export const getGarageCars = async (req, res) => {
   console.log(req);
   try {
-    const car = await Car.findAll({
+    const cars = await Car.findAll({
       where: {
         userId: req.query.userId
       },
@@ -36,7 +36,7 @@ export const getGarageCars = async (req, res) => {
         { model: CarModel, attributes: ['model'] }
       ]
     });
-    return res.json(car);
+    return res.json(cars);
   } catch (e) {
     return res.json('Error: did not get user cars');
   }

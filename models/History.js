@@ -6,5 +6,5 @@ export const History = sequelize.define('histories', {
   mileage: { type: DataTypes.INTEGER, allowNull: false },
   author: { type: DataTypes.STRING, allowNull: false },
   description: { type: DataTypes.TEXT, allowNull: false },
-  date: { type: DataTypes.DATE }
+  date: { type: DataTypes.DATE, defaultValue: new Date() }
 });
