@@ -1,11 +1,36 @@
 import { Car } from '../models/Car.js';
 import { CarBrand } from '../models/CarBrand.js';
 import { CarModel } from '../models/CarModel.js';
+import { Sequelize } from 'sequelize';
+const { Op } = Sequelize;
 
-export const getCars = async (req, res) => {
+export const getSearchCars = async (req, res) => {
   try {
     const car = await Car.findAll({
-      where: req.query,
+      where: {
+        vin: {
+          [Op.like]: Sequelize.literal(`'%${req.query.vin}%'`)
+        }
+      },
+      include: [
+        { model: CarBrand, attributes: ['brand'] },
+        { model: CarModel, attributes: ['model'] }
+      ],
+      limit: req.query.limit
+    });
+    return res.json(car);
+  } catch (e) {
+    return res.json('Error: did not get one car');
+  }
+};
+
+export const getGarageCars = async (req, res) => {
+  console.log(req);
+  try {
+    const car = await Car.findAll({
+      where: {
+        userId: req.query.userId
+      },
       include: [
         { model: CarBrand, attributes: ['brand'] },
         { model: CarModel, attributes: ['model'] }
@@ -13,7 +38,7 @@ export const getCars = async (req, res) => {
     });
     return res.json(car);
   } catch (e) {
-    return res.json('Error: did not get one car');
+    return res.json('Error: did not get user cars');
   }
 };
 
