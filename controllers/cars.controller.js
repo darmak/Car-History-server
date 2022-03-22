@@ -25,7 +25,6 @@ export const getSearchCars = async (req, res) => {
 };
 
 export const getGarageCars = async (req, res) => {
-  console.log(req);
   try {
     const cars = await Car.findAll({
       where: {
