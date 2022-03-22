@@ -2,7 +2,11 @@ import { CarModel } from '../models/CarModel.js';
 
 export const getCarModels = async (req, res) => {
   try {
-    const models = await CarModel.findAll();
+    const models = await CarModel.findAll({
+      where: {
+        carBrandId: req.query.carBrandId
+      }
+    });
     return res.json(models);
   } catch (e) {
     return res.json('Error: did not get models');
