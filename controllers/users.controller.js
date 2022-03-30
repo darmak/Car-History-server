@@ -28,25 +28,20 @@ export const registration = async (req, res, next) => {
   }
 };
 
-export const login = async (req, res, next) => {
+export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
     const user = await User.findOne({ where: { email } });
     if (!user) {
-      return next();
+      return res.json('Error: User does not exist');
     }
     let comparePassword = bcrypt.compareSync(password, user.hash_password);
     if (!comparePassword) {
-      return next();
+      return res.json('Error: invalid password');
     }
     const token = generateJWT(user.id, user.name, user.email, user.role);
     return res.json({ user, token });
   } catch (e) {
     return res.json('Error: failed to login');
   }
-};
-
-export const check = async (req, res) => {
-  const token = generateJWT(req.user.id, req.user.email, req.user.user_role);
-  return res.json({ token });
 };

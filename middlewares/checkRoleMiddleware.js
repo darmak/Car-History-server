@@ -1,25 +1,22 @@
-import jwt from 'jsonwebtoken';
-import config from 'config';
-const { secretKey } = config.get('auth');
+// import jwt from 'jsonwebtoken';
+// import config from 'config';
+// const { secretKey } = config.get('auth');
+import { rolesPermissions } from '../constans/common.js';
 
-export default (role) => {
-  return (req, res, next) => {
-    if (req.method === 'OPTIONS') {
-      next();
-    }
-    try {
-      const token = req.headers.authorization.split(' ')[1];
-      if (!token) {
-        res.status(401).json({ message: 'Error: did not authorization(have not token)' });
-      }
-      const decoded = jwt.verify(token, secretKey);
-      if (decoded.user_role !== role) {
-        return res.status(403).json({ message: 'Error: roles do not match' });
-      }
-      req.user = decoded;
-      next();
-    } catch (e) {
-      res.status(401).json({ message: 'Error: did not authorization' });
-    }
-  };
+export default (req, res, next) => {
+  if (req.method === 'OPTIONS') {
+    next();
+  }
+  console.log(req.method);
+  const { role } = req.query;
+  const route = req.route.path.split('/');
+  const table = route[1];
+  console.log('WORK WORK');
+  // console.log(rolesPermissions[role]);
+  const hasPermission = rolesPermissions[role].includes(`${table}_${req.method.toLowerCase()}`);
+  // console.log('Boolean', hasPermission);
+  if (!hasPermission) {
+    return res.status(401).json({ message: 'Error: did not authorization' });
+  }
+  next();
 };
