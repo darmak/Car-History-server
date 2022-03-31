@@ -1,36 +1,51 @@
-const userRoles = {
+export const userRoles = {
   admin: 'ADMIN',
   user: 'USER',
-  crs: 'CRS'
+  crs: 'CRS',
+  unauthorized: 'unauthorized'
 };
 
 const permissions = {
-  // users: {
-  //   post: ['/registration', '/login']
-  // },
+  login: {
+    create: 'login_create'
+  },
+  registration: {
+    create: 'registration_create'
+  },
+  users: {},
   cars: {
-    get: 'cars_get',
-    post: 'cars_post'
+    read: 'cars_read',
+    create: 'cars_create',
+    update: 'cars_edit',
+    delete: 'cars_delete'
   },
   histories: {
-    get: 'histories_get',
-    post: 'histories_post'
+    read: 'histories_read',
+    create: 'histories_create'
   },
   brands: {
-    get: 'brands_get'
+    read: 'brands_read'
   },
   models: {
-    get: 'models_get'
+    read: 'models_read'
   }
 };
 
 export const rolesPermissions = {
   [userRoles.user]: [
-    permissions.cars.get,
-    permissions.cars.post,
-    permissions.histories.get,
-    permissions.histories.post,
-    permissions.brands.get,
-    permissions.models.get
+    permissions.cars.read,
+    permissions.cars.create,
+    permissions.cars.update,
+    permissions.cars.delete,
+    permissions.brands.read,
+    permissions.models.read
+  ],
+  [userRoles.crs]: [permissions.histories.create],
+  [userRoles.admin]: [],
+  [userRoles.unauthorized]: [
+    permissions.login.create,
+    permissions.registration.create,
+    permissions.cars.read,
+    permissions.histories.read
   ]
 };

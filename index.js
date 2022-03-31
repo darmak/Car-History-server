@@ -6,6 +6,8 @@ import bodyParser from 'body-parser';
 import process from 'process';
 import { sequelize } from './models/index.js';
 import dotenv from 'dotenv';
+import checkPermissionMiddleware from './middlewares/permissionMiddleware.js';
+import authMiddleware from './middlewares/authMiddleware.js';
 
 dotenv.config();
 const __dirname = path.resolve();
@@ -33,8 +35,9 @@ app.use(
   })
 );
 
+app.use(authMiddleware);
+app.use(checkPermissionMiddleware);
 app.use(express.json());
-
 app.use(express.static(path.resolve(__dirname, 'static')));
 app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: true }));
