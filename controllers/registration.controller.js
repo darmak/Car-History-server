@@ -1,20 +1,19 @@
 import { User } from '../models/User.js';
 import bcrypt from 'bcrypt';
 
-export const registration = async (req, res, next) => {
+export const registration = async (req, res) => {
+  const { name, email, password, role } = req.body;
+  if (!email || !password) {
+    return res.json('Registration error: invalid email or password');
+  }
   try {
-    const { name, email, password, user_role } = req.body;
-    if (!email || !password) {
-      return next();
-    }
-    const candidate = await User.findOne({ where: { email } });
-    if (candidate) {
-      return next();
+    if (await User.findOne({ where: { email } })) {
+      return res.json('Registration error: user already exist');
     }
     const hashPassword = await bcrypt.hash(password, 5);
-    const user = await User.create({ name, email, user_role, hash_password: hashPassword });
+    const user = await User.create({ name, email, role, hash_password: hashPassword });
     return res.json(user);
   } catch (e) {
-    return res.json('Error: failed to register');
+    return res.json('Registration error: failed to register');
   }
 };

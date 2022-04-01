@@ -2,7 +2,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import config from 'config';
 import { User } from '../models/User.js';
-import { rolesPermissions } from '../constans/common.js';
+import { rolesPermissions } from '../constans/rolePermission.js';
 
 const { secretKey } = config.get('auth');
 
@@ -18,7 +18,7 @@ export const login = async (req, res) => {
       return res.json('Error: invalid password');
     }
     const token = jwt.sign(
-      { id: user.id, user_role: user.user_role, permissions: rolesPermissions[user.user_role] },
+      { id: user.id, role: user.role, permissions: rolesPermissions[user.role] },
       secretKey,
       {
         expiresIn: '1h'
@@ -26,7 +26,7 @@ export const login = async (req, res) => {
     );
 
     return res.json({
-      user: { id: user.id, user_role: user.user_role },
+      user: { id: user.id, role: user.role },
       token
     });
   } catch (e) {

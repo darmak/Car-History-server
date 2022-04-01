@@ -1,7 +1,7 @@
 export const userRoles = {
-  admin: 'ADMIN',
-  user: 'USER',
-  crs: 'CRS',
+  admin: 'admin',
+  user: 'user',
+  crs: 'crs',
   unauthorized: 'unauthorized'
 };
 
@@ -16,7 +16,7 @@ const permissions = {
   cars: {
     read: 'cars_read',
     create: 'cars_create',
-    update: 'cars_edit',
+    edit: 'cars_edit',
     delete: 'cars_delete'
   },
   histories: {
@@ -35,7 +35,7 @@ export const rolesPermissions = {
   [userRoles.user]: [
     permissions.cars.read,
     permissions.cars.create,
-    permissions.cars.update,
+    permissions.cars.edit,
     permissions.cars.delete,
     permissions.brands.read,
     permissions.models.read
