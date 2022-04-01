@@ -6,6 +6,7 @@ import bodyParser from 'body-parser';
 import process from 'process';
 import { sequelize } from './models/index.js';
 import dotenv from 'dotenv';
+import middlewares from './middlewares/index.js';
 
 dotenv.config();
 const __dirname = path.resolve();
@@ -33,8 +34,8 @@ app.use(
   })
 );
 
+middlewares(app);
 app.use(express.json());
-
 app.use(express.static(path.resolve(__dirname, 'static')));
 app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: true }));

@@ -7,7 +7,7 @@ export const User = sequelize.define('users', {
   name: { type: DataTypes.STRING, allowNull: false },
   email: { type: DataTypes.STRING, unique: true, allowNull: false },
   hash_password: { type: DataTypes.STRING },
-  user_role: { type: DataTypes.STRING, defaultValue: 'USER' }
+  role: { type: DataTypes.STRING, defaultValue: 'user' }
 });
 
 User.hasMany(Car);
