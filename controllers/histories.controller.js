@@ -9,7 +9,7 @@ export const getCarHistories = async (req, res) => {
     });
     return res.json(histories);
   } catch (e) {
-    return res.json('Error: did not get one car');
+    return res.json({ message: 'Error: did not get one car' });
   }
 };
 
@@ -25,6 +25,6 @@ export const addHistory = async (req, res) => {
     });
     return res.json(newHistory);
   } catch (e) {
-    return res.json('Error: did not add new history');
+    return res.json({ message: 'Error: did not add new history' });
   }
 };

@@ -11,11 +11,11 @@ export const login = async (req, res) => {
   try {
     const user = await User.findOne({ where: { email } });
     if (!user) {
-      return res.json('Error: User does not exist');
+      return res.json({ message: 'Error: User does not exist' });
     }
     let comparePassword = bcrypt.compareSync(password, user.hash_password);
     if (!comparePassword) {
-      return res.json('Error: invalid password');
+      return res.json({ message: 'Error: invalid password' });
     }
     const tokenUser = { id: user.id, role: user.role, permissions: rolesPermissions[user.role] };
     const token = jwt.sign(tokenUser, secretKey, {
@@ -27,6 +27,6 @@ export const login = async (req, res) => {
       token
     });
   } catch (e) {
-    return res.json('Error: failed to login');
+    return res.json({ message: 'Error: failed to login' });
   }
 };
