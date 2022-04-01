@@ -7,8 +7,8 @@ import { rolesPermissions } from '../constans/rolePermission.js';
 const { secretKey } = config.get('auth');
 
 export const login = async (req, res) => {
+  const { email, password } = req.body;
   try {
-    const { email, password } = req.body;
     const user = await User.findOne({ where: { email } });
     if (!user) {
       return res.json('Error: User does not exist');
@@ -17,16 +17,13 @@ export const login = async (req, res) => {
     if (!comparePassword) {
       return res.json('Error: invalid password');
     }
-    const token = jwt.sign(
-      { id: user.id, role: user.role, permissions: rolesPermissions[user.role] },
-      secretKey,
-      {
-        expiresIn: '1h'
-      }
-    );
+    const tokenUser = { id: user.id, role: user.role, permissions: rolesPermissions[user.role] };
+    const token = jwt.sign(tokenUser, secretKey, {
+      expiresIn: '1h'
+    });
 
     return res.json({
-      user: { id: user.id, role: user.role },
+      user: tokenUser,
       token
     });
   } catch (e) {

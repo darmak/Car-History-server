@@ -38,7 +38,9 @@ export const rolesPermissions = {
     permissions.cars.edit,
     permissions.cars.delete,
     permissions.brands.read,
-    permissions.models.read
+    permissions.models.read,
+    permissions.histories.read,
+    permissions.histories.create
   ],
   [userRoles.crs]: [permissions.histories.create],
   [userRoles.admin]: [],

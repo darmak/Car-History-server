@@ -7,7 +7,7 @@ export default (req, res, next) => {
     next();
   }
   if (req.headers.authorization) {
-    const token = req.headers.authorization.split(' ')[1];
+    const token = req.headers.authorization.split(' ')[1].trim();
     if (!token) {
       return res.status(401).json({ message: 'Authorization error: token is absent' });
     }
