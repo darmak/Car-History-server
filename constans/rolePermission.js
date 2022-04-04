@@ -46,7 +46,7 @@ export const rolesPermissions = {
     permissions.histories.create
   ],
   [userRoles.crs]: [permissions.histories.create],
-  [userRoles.admin]: [],
+  [userRoles.admin]: [permissions.users.read],
   [userRoles.unauthorized]: [
     permissions.login.create,
     permissions.registration.create,
