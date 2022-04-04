@@ -12,7 +12,9 @@ const permissions = {
   registration: {
     create: 'registration_create'
   },
-  users: {},
+  users: {
+    read: 'users_read'
+  },
   cars: {
     read: 'cars_read',
     create: 'cars_create',
@@ -33,6 +35,7 @@ const permissions = {
 
 export const rolesPermissions = {
   [userRoles.user]: [
+    permissions.users.read,
     permissions.cars.read,
     permissions.cars.create,
     permissions.cars.edit,
