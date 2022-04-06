@@ -20,7 +20,7 @@ export const getSearchCars = async (req, res) => {
     });
     return res.json(cars);
   } catch (e) {
-    return res.json({ message: 'Error: did not get one car' });
+    return res.status(400).json({ message: 'Error: did not get one car' });
   }
 };
 
@@ -37,7 +37,7 @@ export const getGarageCars = async (req, res) => {
     });
     return res.json(cars);
   } catch (e) {
-    return res.json({ message: 'Error: did not get user cars' });
+    return res.status(400).json({ message: 'Error: did not get user cars' });
   }
 };
 
@@ -54,6 +54,6 @@ export const addCar = async (req, res) => {
     });
     return res.json(newCar);
   } catch (e) {
-    return res.json({ message: 'Error: did not add car' });
+    return res.status(400).json({ message: 'Error: did not add car' });
   }
 };

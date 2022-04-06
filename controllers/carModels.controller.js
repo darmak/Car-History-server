@@ -9,7 +9,7 @@ export const getCarModels = async (req, res) => {
     });
     return res.json(models);
   } catch (e) {
-    return res.json({ message: 'Error: did not get models' });
+    return res.status(400).json({ message: 'Error: did not get models' });
   }
 };
 
@@ -19,6 +19,6 @@ export const addCarModel = async (req, res) => {
     const newModel = await CarModel.create({ model, carBrandId });
     return res.json(newModel);
   } catch (e) {
-    return res.json({ message: 'Error: did not add model' });
+    return res.status(400).json({ message: 'Error: did not add model' });
   }
 };
