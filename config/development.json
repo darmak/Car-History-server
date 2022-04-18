@@ -3,5 +3,8 @@
 		"database": "Car-History",
 		"host": "localhost",
 		"dialect": "postgres"
+	},
+	"registration": {
+		"salt": 5
 	}
 }

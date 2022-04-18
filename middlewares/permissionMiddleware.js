@@ -1,6 +1,6 @@
-import { rolesPermissions, userRoles } from '../constans/rolePermission.js';
+import { rolesPermissions, userRoles } from '../constants/rolePermission.js';
 import { getPermissionByReq } from '../helpers/getPermissionByReq.js';
-import { methodMap } from '../constans/methodMap.js';
+import { methodMap } from '../constants/methodMap.js';
 
 export default (req, res, next) => {
   if (req.method === 'OPTIONS') {
