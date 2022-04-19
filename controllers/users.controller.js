@@ -21,9 +21,31 @@ export const getAllUsers = async (req, res) => {
   }
 };
 
-export const deleteUser = async (req, res) => {
+export const editUser = async (req, res) => {
+  const { id } = req.params;
+  const { name, email } = req.body;
   try {
-    const { id } = req.params;
+    const findUserById = await User.findByPk(id);
+    if (!findUserById) {
+      return res.status(400).json({ message: 'Edit error: person not found.Did not edit user' });
+    }
+    User.update(
+      { name, email },
+      {
+        where: {
+          id
+        }
+      }
+    );
+    return res.json({ message: 'Successfully edited' });
+  } catch (e) {
+    return res.status(400).json({ message: 'Edit error: did not edit user' });
+  }
+};
+
+export const deleteUser = async (req, res) => {
+  const { id } = req.params;
+  try {
     const findUserById = await User.findByPk(id);
     if (!findUserById) {
       return res
