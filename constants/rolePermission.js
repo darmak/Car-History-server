@@ -40,7 +40,9 @@ const unauthorizedPermissions = [
   permissions.login.create,
   permissions.registration.create,
   permissions.cars.read,
-  permissions.histories.read
+  permissions.histories.read,
+  permissions.brands.read,
+  permissions.models.read
 ];
 
 export const rolesPermissions = {
@@ -60,9 +62,7 @@ export const rolesPermissions = {
     ...unauthorizedPermissions,
     permissions.users.read,
     permissions.users.delete,
-    permissions.cars.read,
-    permissions.brands.read,
-    permissions.models.read
+    permissions.users.edit
   ],
   [userRoles.unauthorized]: unauthorizedPermissions
 };
