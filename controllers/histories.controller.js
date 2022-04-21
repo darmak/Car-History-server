@@ -1,15 +1,16 @@
 import { History } from '../models/History.js';
 
 export const getCarHistories = async (req, res) => {
+  const { id } = req.params;
   try {
     const histories = await History.findAll({
       where: {
-        carId: req.query.carId
+        carId: id
       }
     });
     return res.json(histories);
   } catch (e) {
-    return res.status(400).json({ message: 'Error: did not get one car' });
+    return res.status(400).json({ message: 'Error: did not get histories about car' });
   }
 };
 

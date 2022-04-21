@@ -17,7 +17,12 @@ export const login = async (req, res) => {
     if (!comparePassword) {
       return res.status(400).json({ message: 'Error: invalid password' });
     }
-    const tokenUser = { id: user.id, role: user.role, permissions: rolesPermissions[user.role] };
+    const tokenUser = {
+      id: user.id,
+      name: user.name,
+      role: user.role,
+      permissions: rolesPermissions[user.role]
+    };
     const token = jwt.sign(tokenUser, secretKey, {
       expiresIn: '1h'
     });
