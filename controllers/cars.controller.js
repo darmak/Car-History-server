@@ -36,7 +36,7 @@ export const getCar = async (req, res) => {
     });
     return res.json(cars);
   } catch (e) {
-    return res.status(400).json({ message: 'Error: did not get user car!!!!!!!' });
+    return res.status(400).json({ message: 'Error: did not get user car' });
   }
 };
 

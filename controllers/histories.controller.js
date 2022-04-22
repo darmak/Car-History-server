@@ -10,7 +10,7 @@ export const getCarHistories = async (req, res) => {
     });
     return res.json(histories);
   } catch (e) {
-    return res.status(400).json({ message: 'Error: did not get histories about car' });
+    return res.status(400).json({ message: 'Error: did not get car histories' });
   }
 };
 
