@@ -24,6 +24,22 @@ export const getSearchCars = async (req, res) => {
   }
 };
 
+export const getCar = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const cars = await Car.findOne({
+      where: { id },
+      include: [
+        { model: CarBrand, attributes: ['brand'] },
+        { model: CarModel, attributes: ['model'] }
+      ]
+    });
+    return res.json(cars);
+  } catch (e) {
+    return res.status(400).json({ message: 'Error: did not get user car' });
+  }
+};
+
 export const getGarageCars = async (req, res) => {
   try {
     const cars = await Car.findAll({
