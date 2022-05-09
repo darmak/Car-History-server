@@ -61,6 +61,7 @@ export const rolesPermissions = {
   [userRoles.admin]: [
     ...unauthorizedPermissions,
     permissions.users.read,
+    permissions.users.create,
     permissions.users.delete,
     permissions.users.edit
   ],
